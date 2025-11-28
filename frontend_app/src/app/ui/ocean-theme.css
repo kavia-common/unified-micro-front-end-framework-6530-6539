@@ -1,0 +1,80 @@
+/* Ocean Professional Theme variables */
+:root {
+  --color-primary: #2563EB;
+  --color-secondary: #F59E0B;
+  --color-success: #F59E0B;
+  --color-error: #EF4444;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), 0 1px 1px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+  --gradient-accent: linear-gradient(135deg, rgba(59,130,246,0.10), rgba(249,250,251,1));
+}
+
+/* Buttons */
+.o-btn {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem;
+  font-weight: 600;
+  color: white;
+  background: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease;
+  cursor: pointer;
+}
+.o-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.o-btn:active { transform: translateY(0); }
+
+.o-btn.secondary { background: var(--color-secondary); color: #1f2937; }
+.o-btn.ghost { background: transparent; color: var(--color-primary); border: 1px solid rgba(37,99,235,0.3); }
+
+/* Inputs */
+.o-input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.75rem;
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition: border 120ms ease, box-shadow 200ms ease;
+}
+.o-input:focus {
+  border-color: rgba(37,99,235,0.6);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+}
+
+/* Alert */
+.o-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--gradient-accent);
+  border: 1px solid #e5e7eb;
+  color: var(--color-text);
+}
+
+/* Toast container */
+.o-toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  z-index: 9999;
+}
+.o-toast {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid #e5e7eb;
+  border-left: 4px solid var(--color-primary);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+}
+.o-toast.error { border-left-color: var(--color-error); }
+.o-toast.success { border-left-color: var(--color-success); }

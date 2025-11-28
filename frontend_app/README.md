@@ -1,59 +1,79 @@
-# Angular
+# Angular Micro Front-End App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
+This Angular app provides:
+- Reusable UI primitives (buttons, inputs, alert/toast) under Ocean Professional theme.
+- Application shell with responsive sidebar, header, and content area.
+- Authentication flows: Login, MFA, Forgot Password, Reset Password.
+- Config service reading environment variables and exposing feature flags.
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run locally
 
 ```bash
-ng generate component component-name
+npm install
+npm start
+# or: ng serve
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+App runs by default on http://localhost:3000
 
-```bash
-ng generate --help
-```
+## Routes
 
-## Building
+- /              → Shell + Dashboard (protected)
+- /feature       → Example feature (protected)
+- /auth/login    → Login
+- /auth/mfa      → MFA code entry
+- /auth/forgot   → Forgot password
+- /auth/reset    → Reset password (expects ?token=...)
 
-To build the project run:
+## Environment variables
 
-```bash
-ng build
-```
+These NG_APP_* variables are read at runtime via `window.__env` if present:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- NG_APP_API_BASE              → API base URL (e.g., https://api.example.com)
+- NG_APP_BACKEND_URL           → Backend base URL
+- NG_APP_FRONTEND_URL          → Frontend base URL
+- NG_APP_WS_URL                → Websocket URL
+- NG_APP_NODE_ENV              → Environment name (development|production)
+- NG_APP_NEXT_TELEMETRY_DISABLED → Disable telemetry (true|false)
+- NG_APP_ENABLE_SOURCE_MAPS    → Enable source maps (true|false)
+- NG_APP_PORT                  → Port for local dev
+- NG_APP_TRUST_PROXY           → Trust proxy setting
+- NG_APP_LOG_LEVEL             → Log level
+- NG_APP_HEALTHCHECK_PATH      → Healthcheck path
+- NG_APP_FEATURE_FLAGS         → JSON object or CSV list of feature flags
+- NG_APP_EXPERIMENTS_ENABLED   → Enable experiments (true|false)
 
-## Running unit tests
+ConfigService exposes these values; use it in services/components.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Theme
 
-```bash
-ng test
-```
+Ocean Professional palette:
+- Primary: #2563EB
+- Secondary/Success: #F59E0B
+- Error: #EF4444
+- Background: #f9fafb
+- Surface: #ffffff
+- Text: #111827
 
-## Running end-to-end tests
+Global CSS at `src/app/ui/ocean-theme.css` and `src/styles.css`.
 
-For end-to-end (e2e) testing, run:
+## Auth
 
-```bash
-ng e2e
-```
+AuthService handles:
+- login, mfa, forgot, reset
+- token persistence (localStorage) and state
+- Authorization header via HTTP interceptor
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Guards:
+- authGuard → protects private routes
+- publicGuard → redirects authenticated users away from auth pages
 
-## Additional Resources
+### Note
+Provide valid backend endpoints that match:
+- POST {API_BASE}/auth/login
+- POST {API_BASE}/auth/mfa
+- POST {API_BASE}/auth/forgot
+- POST {API_BASE}/auth/reset
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+No backend configuration is modified here.
+
